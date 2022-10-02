@@ -84,9 +84,6 @@
     <ClInclude Include="..\src\swcollsn.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\swconf.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\swdisp.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -156,6 +153,9 @@
     <ClInclude Include="..\src\swmenu.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\swconf.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\swasynio.c">
@@ -165,9 +165,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\swcollsn.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\swconf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\swdisp.c">
@@ -244,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="..\src\32x\video_keys.c">
       <Filter>Source Files\32x</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\swconf.c">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

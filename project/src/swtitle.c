@@ -217,15 +217,7 @@ void getgamemode(void)
 		{
 			"single player\n",
 			"single player against computer\n",
-#ifdef TCPIP
-			"network game\n", 
-#else
-			 "network game (unavailable)\n", 
-#endif		
 			"game options\n",
-#ifdef CAN_QUIT
-			"quit game\n"
-#endif
 		};
 		int menuitemscount = sizeof(menuitems) / sizeof(menuitems[0]);
 		
@@ -244,17 +236,6 @@ void getgamemode(void)
 		case 2:
 			setconfig();
 			break;
-#ifdef TCPIP
-		case 3:
-			if (getnet()) {
-				playmode = PLAYMODE_ASYNCH;
-				return;
-			}
-			break;
-#endif
-		case 4:
-			exit(0);
-			break;
 		}
 	}
 }
@@ -263,7 +244,7 @@ void getgamemode(void)
 //---------------------------------------------------------------------------
 //
 // $Log$
-// Revision ?.?  2022/10/01 19:46:10  pw
+// Revision ?.?  2022/10/01 19:46:10  cherish
 // converted menu screens for keyboard-less platforms
 //
 // Revision 1.10  2005/05/29 19:46:10  fraggle

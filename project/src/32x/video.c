@@ -54,8 +54,6 @@ static SDL_Color cga_pal[] = {
 };
 */
 
-BOOL vid_fullscreen = TRUE;
-
 extern unsigned char *vid_vram;
 extern unsigned int vid_pitch;
 

@@ -43,6 +43,7 @@
 #include "swtitle.h"
 #include "swmain.h"
 
+/*
 #define CONFIG_FILE_NAME "sopwith.cfg"
 
 static char *GetConfigFilename(void)
@@ -69,7 +70,7 @@ static char *GetConfigFilename(void)
 	snprintf(result, buflen, "%s%s", pref_path, CONFIG_FILE_NAME);
 	return result;
 }
-
+*/ 
 static confoption_t confoptions[] = {
 	{"conf_missiles",       CONF_BOOL, {&conf_missiles}},
 	{"conf_solidground",    CONF_BOOL, {&conf_solidground}},
@@ -79,19 +80,7 @@ static confoption_t confoptions[] = {
 	{"conf_harrykeys",      CONF_BOOL, {&conf_harrykeys}},
 	{"conf_big_explosions", CONF_BOOL, {&conf_big_explosions}},
 	{"conf_medals",         CONF_BOOL, {&conf_medals}},
-	{"vid_fullscreen",      CONF_BOOL, {&vid_fullscreen}},
 	{"snd_tinnyfilter",     CONF_BOOL, {&snd_tinnyfilter}},
-
-	{"key_accelerate", CONF_KEY, {&keybindings[KEY_ACCEL]}},
-	{"key_decelerate", CONF_KEY, {&keybindings[KEY_DECEL]}},
-	{"key_pullup",     CONF_KEY, {&keybindings[KEY_PULLUP]}},
-	{"key_pulldown",   CONF_KEY, {&keybindings[KEY_PULLDOWN]}},
-	{"key_flip",       CONF_KEY, {&keybindings[KEY_FLIP]}},
-	{"key_fire",       CONF_KEY, {&keybindings[KEY_FIRE]}},
-	{"key_dropbomb",   CONF_KEY, {&keybindings[KEY_BOMB]}},
-	{"key_home",       CONF_KEY, {&keybindings[KEY_HOME]}},
-	{"key_missile",    CONF_KEY, {&keybindings[KEY_MISSILE]}},
-	{"key_starburst",  CONF_KEY, {&keybindings[KEY_STARBURST]}},
 };
 
 int num_confoptions = sizeof(confoptions) / sizeof(*confoptions);
@@ -106,7 +95,6 @@ static void chomp(char *s)
 
 static confoption_t *confoption_by_name(char *name)
 {
-	/*
 	int i;
 
 	for (i=0; i<num_confoptions; ++i) {
@@ -114,11 +102,12 @@ static confoption_t *confoption_by_name(char *name)
 			return &confoptions[i];
 		}
 	}
-	*/
+
 	return NULL;
 
 }
 
+/*
 static void parse_config_line(char *config_file, int lineno, char *line)
 {
 	char *name, *value, *p;
@@ -173,16 +162,16 @@ static void parse_config_line(char *config_file, int lineno, char *line)
 			break;
 	}
 }
-
+*/
 //
 // load config file
 //
 // ugly but it works
 //
-
+	/*
 void swloadconf(void)
 {
-	/*
+
 	char *config_file = GetConfigFilename();
 	FILE *fs;
 	char inbuf[128];
@@ -210,7 +199,7 @@ void swloadconf(void)
 	}
 
 	fclose(fs);
-	*/
+
 }
 
 //
@@ -260,19 +249,20 @@ void swsaveconf(void)
 	fprintf(fs, "\n\n");
 
 	fclose(fs);
-	*/ 
-}
 
+}
+	*/ 
 struct menuitem {
 	char *config_name;
 	char *description;
 };
 
-static const char menukeys[] = "1234567890ABCDEFGHIJKL";
+//static const char menukeys[] = "1234567890ABCDEFGHIJKL";
 
+	/*
 static void change_key_binding(struct menuitem *item)
 {
-	/*
+
 	confoption_t *opt;
 	int key;
 
@@ -310,10 +300,10 @@ static void change_key_binding(struct menuitem *item)
 		return;
 	}
 	*opt->value.i = key;
-	*/
 }
+	*/
 
-static void drawmenu(char *title, struct menuitem *menu)
+static void drawmenu(char *title, struct menuitem *menu, int menuitemscount, int currentmenuitemindex)
 {
 	int i, y, keynum, said_key = 0;
 	Vid_ClearBuf();
@@ -324,7 +314,7 @@ static void drawmenu(char *title, struct menuitem *menu)
 
 	swcolor(3);
 
-	for (i=0, y=0, keynum=0; menu[i].config_name != NULL; ++i, ++y) {
+	for (i=0, y=0; i < menuitemscount; ++i, ++y) {
 		confoption_t *opt;
 		char *suffix;
 		char buf[40];
@@ -334,6 +324,7 @@ static void drawmenu(char *title, struct menuitem *menu)
 			continue;
 		}
 
+		/*
 		if (menu[i].config_name[0] == '>') {
 			key = menu[i].config_name[1];
 			swcolor(1);
@@ -349,42 +340,35 @@ static void drawmenu(char *title, struct menuitem *menu)
 				said_key = 1;
 			}
 		}
-		snprintf(buf, sizeof(buf), "%c - %s%s",
-		         key, menu[i].description, suffix);
+		*/
+		if (strcasecmp(menu[i].config_name, "exit") == 0)
+			swcolor(1);
+
+		snprintf(buf, sizeof(buf), "%s",
+		         menu[i].description);
 
 		swposcur(5, 5+y);
 		swputs(buf);
 		swcolor(3);
 
-		if (strlen(buf) > 22) {
-			++y;
-		}
-
-		swposcur(28, 5+y);
+		swposcur(30, 5+y);
 		opt = confoption_by_name(menu[i].config_name);
 		if (opt == NULL) {
 			continue;
 		}
+
 		switch (opt->type) {
 		case CONF_BOOL:
 			swputs(*opt->value.b ? "on" : "off");
-			break;
-		case CONF_KEY:
-			swputs(Vid_KeyName(*opt->value.i));
 			break;
 		default:
 			break;
 		}
 	}
 
-	swcolor(1);
-
-	swposcur(1, 22);
-	swputs("   ESC - Exit Menu");
-
-	Vid_Update();
+	Vid_DispSymbol(16, SCR_HGHT - (34 + (currentmenuitemindex * 8)), symbol_plane[0][0], 1);
 }
-
+/*
 static struct menuitem *menuitem_for_key(struct menuitem *menu, int key)
 {
 	int i, keynum;
@@ -406,28 +390,24 @@ static struct menuitem *menuitem_for_key(struct menuitem *menu, int key)
 
 	return NULL;
 }
+*/
 
 // Present the given menu to the user. Returns zero if escape was pushed
 // to exit the menu, or if a >jump item was chosen, it returns the key
 // binding associated with it.
-static int runmenu(char *title, struct menuitem *menu)
+static int runmenu(char *title, struct menuitem *menu, int menuitemscount)
 {
 	struct menuitem *pressed;
 	confoption_t *opt;
 	int key;
 
-	for (;;) {
-		drawmenu(title, menu);
+	int currentmenuitemindex = 0;
+	int done = FALSE;
 
-		if (ctlbreak()) {
-			swend(NULL, NO);
-		}
+	while (!done) {
+		drawmenu(title, menu, menuitemscount, currentmenuitemindex);
 
-		key = toupper(swgetc() & 0xff);
-		if (key == 27) {
-			return 0;
-		}
-
+		/*
 		// check if a number has been pressed for a menu option
 		pressed = menuitem_for_key(menu, key);
 		if (pressed == NULL) {
@@ -453,29 +433,57 @@ static int runmenu(char *title, struct menuitem *menu)
 			break;
 		}
 
-		// reset the screen if we need to
-		if (opt->value.b == &vid_fullscreen) {
-			Vid_Reset();
-		}
-
 		swsaveconf();
+		*/
+
+		Vid_GetKey();
+
+		Vid_Update();
+
+		if (keysdown[KEY_UP] && currentmenuitemindex)
+		{
+			do
+			{
+				currentmenuitemindex--;
+			} while (menu[currentmenuitemindex].config_name == NULL);
+		}
+		else if (keysdown[KEY_DOWN] && currentmenuitemindex < menuitemscount - 1)
+		{
+			do 
+			{
+				currentmenuitemindex++;
+			} while (menu[currentmenuitemindex].config_name == NULL);
+		}
+		else if (keysdown[KEY_ACCEPT])
+		{
+			if (strcasecmp(menu[currentmenuitemindex].config_name, "exit") == 0)
+			{
+				done = TRUE;
+			}
+			else
+			{
+				opt = confoption_by_name(menu[currentmenuitemindex].config_name);
+				if (opt != NULL) {
+					switch (opt->type) {
+					case CONF_BOOL:
+						*opt->value.b = !*opt->value.b;
+						break;
+					default:
+						break;
+					}
+
+				}
+
+			}
+		}
+		else if (keysdown[KEY_BACK])
+		{
+			done = TRUE;
+		}
 	}
 }
 
-struct menuitem keys_menu[] = {
-	{"key_accelerate", "Accelerate"},
-	{"key_decelerate", "Decelerate"},
-	{"key_pullup",     "Pull up"},
-	{"key_pulldown",   "Pull down"},
-	{"key_flip",       "Flip"},
-	{"key_fire",       "Fire machine gun"},
-	{"key_dropbomb",   "Drop bomb"},
-	{"key_home",       "Navigate home"},
-	{NULL},
-};
-
 struct menuitem options_menu[] = {
-	{"vid_fullscreen",      "Run fullscreen"},
 	{"conf_solidground",    "Solid ground"},
 	{"conf_hudsplats",      "HUD splats"},
 	{"conf_wounded",        "Wounded planes"},
@@ -483,20 +491,18 @@ struct menuitem options_menu[] = {
 	{"conf_big_explosions", "Big oil tank explosions"},
 	{"conf_medals",         "Medals"},
 	{"conf_harrykeys",      "Harry keys mode"},
-	{"",                    ""},
-	{">K",                  "Key bindings"},
 	{NULL},
+	{"exit",				"Exit"},
 };
+
+int options_menu_count = sizeof(options_menu) / sizeof(options_menu[0]);
 
 void setconfig(void)
 {
 	for (;;) {
-		switch (runmenu("OPTIONS", options_menu)) {
+		switch (runmenu("OPTIONS", options_menu, options_menu_count)) {
 			case 0:
 				return;
-			case 'K':
-				runmenu("OPTIONS > KEY BINDINGS", keys_menu);
-				break;
 		}
 	}
 }

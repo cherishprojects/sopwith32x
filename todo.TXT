@@ -3,9 +3,8 @@ DONE fix timer
 
 DONE adapt controls
 
-
-adapt start menu
-adapt options menu
+DONE adapt start menu
+DONE adapt options menu
 
 fix intro screen
 

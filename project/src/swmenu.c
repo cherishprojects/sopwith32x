@@ -90,10 +90,6 @@ int displaymenu(int x, int y, const char** menuitems, unsigned char menuitemscou
 			selectionmade = TRUE;
 			currentindex = -1;
 		}
-
-		if (ctlbreak()) {
-			swend(NULL, NO);
-		}
 	}
 
 	return currentindex;
@@ -104,7 +100,7 @@ int displaymenu(int x, int y, const char** menuitems, unsigned char menuitemscou
 //---------------------------------------------------------------------------
 //
 // $Log$
-// Revision ?.?  2022/10/01 19:25:28  pw
+// Revision ?.?  2022/10/01 19:25:28  cherish
 // Added menu system to make selections on keyboard-less platforms
 //
 //---------------------------------------------------------------------------

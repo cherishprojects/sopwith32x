@@ -1017,7 +1017,7 @@ void swinit(int argc, char *argv[])
 	// DEBIAN FOLKS: please don't disable the configuration file.
 	// The code has changed significantly, that patch should no
 	// longer be necessary.
-	swloadconf();
+	//swloadconf();
 	/*
 	for (i=1; i<argc; ++i) {
 		if (!strcasecmp(argv[i], "-n")) {
