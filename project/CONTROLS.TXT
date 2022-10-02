@@ -1,0 +1,8 @@
+Sopwith 32X Controls
+
+Up -> accellerate
+Down -> decellerate
+Right/Left -> turn
+A -> fire/accept
+B -> bomb/back
+C -> missile (with activated in options)
