@@ -1,1 +1,1 @@
-mega-usb.exe ..\out\Sopwith.32x
+mega-usb.exe ..\out\Sopwith32x.32x
