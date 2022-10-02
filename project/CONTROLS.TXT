@@ -1,8 +1,15 @@
-Sopwith 32X Controls
+Sopwith 32X 
 
-Up -> accellerate
-Down -> decellerate
-Right/Left -> turn
-A -> fire/accept
-B -> bomb/back
-C -> missile (with activated in options)
+Objective
+
+	Blow up all the things!
+
+
+Controls
+
+	Up -> accellerate
+	Down -> decellerate
+	Right/Left -> turn
+	A -> fire/accept
+	B -> bomb/back
+	C -> missile (with activated in options)

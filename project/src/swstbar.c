@@ -76,7 +76,6 @@ static void dispscore(OBJECTS * ob)
 	swposcur(2, 24);
 	swcolor(ob->ob_clr);
 	swdispd(ob->ob_score.score, 6);
-	swdispd(currentButtonState, 6);
 }
 
 static void dispgge(int x, int cury, int maxy, int clr)
