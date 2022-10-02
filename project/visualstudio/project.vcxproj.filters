@@ -8,9 +8,6 @@
     <Filter Include="build">
       <UniqueIdentifier>{cf5c9c9d-4929-4e91-86e2-2e165321bb59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\msvc">
-      <UniqueIdentifier>{ee480909-20cd-441c-a0aa-86aaeb974724}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\32x">
       <UniqueIdentifier>{6f9ed47f-b8da-4215-829c-3c27ef8377cf}</UniqueIdentifier>
     </Filter>
@@ -141,9 +138,6 @@
     <ClInclude Include="..\src\video.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\msvc\config.h">
-      <Filter>Source Files\msvc</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\32x\hw_32x.h">
       <Filter>Source Files\32x</Filter>
     </ClInclude>
@@ -155,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="..\src\swconf.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\32x\config.h">
+      <Filter>Source Files\32x</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

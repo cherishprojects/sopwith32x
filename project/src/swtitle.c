@@ -88,6 +88,10 @@ void swtitln(void)
 	swcolor(3);
 	swputs(" GPL");
 
+	swcolor(3);
+	swposcur(0+X_OFFSET/8, 13);
+	swputs("    32X Conversion by Cherish");
+
 	initgrnd();
 	displx = 507-X_OFFSET;
 	swground();

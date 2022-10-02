@@ -106,9 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\32x\32x.h" />
+    <ClInclude Include="..\src\32x\config.h" />
     <ClInclude Include="..\src\32x\hw_32x.h" />
     <ClInclude Include="..\src\font.h" />
-    <ClInclude Include="..\src\msvc\config.h" />
     <ClInclude Include="..\src\pcsound.h" />
     <ClInclude Include="..\src\std.h" />
     <ClInclude Include="..\src\sw.h" />
