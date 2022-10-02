@@ -30,7 +30,7 @@
 #include "swsound.h"
 #include "swutil.h"
 
-void swend(char *msg, BOOL update)
+void swend(char *msg)
 {
 	char *closmsg = NULL;
 	char *multclos(), *asynclos();

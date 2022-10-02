@@ -26,7 +26,8 @@
 #include <stdlib.h>
 
 typedef enum {FALSE, TRUE} BOOL;
-enum {NO, YES};
+#define NO FALSE
+#define YES TRUE
 
 #endif
 

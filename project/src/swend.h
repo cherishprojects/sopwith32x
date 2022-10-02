@@ -24,7 +24,7 @@
 
 #include "sw.h"
 
-extern void swend(char *msg, BOOL update);
+extern void swend(char *msg);
 extern void endgame(int targclr);
 extern void winner(OBJECTS *obp);
 extern void loser(OBJECTS *ob);

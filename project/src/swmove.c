@@ -179,7 +179,7 @@ BOOL moveplyr(OBJECTS *ob)
 			if (playmode != PLAYMODE_ASYNCH && !quit) {
 				swrestart();
 			}
-			swend(NULL, YES);
+			swend(NULL);
 		}
 	}
 	
@@ -224,7 +224,7 @@ BOOL moveplyr(OBJECTS *ob)
 			initdisp(YES);
 			if (endstat == WINNER) {
 				if (ctlbreak()) {
-					swend(NULL, YES);
+					swend(NULL);
 				}
 				winner(ob);
 			}
