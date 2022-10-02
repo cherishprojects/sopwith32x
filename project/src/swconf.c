@@ -484,6 +484,7 @@ static int runmenu(char *title, struct menuitem *menu, int menuitemscount)
 }
 
 struct menuitem options_menu[] = {
+	{"conf_missiles",		"Missles"},
 	{"conf_solidground",    "Solid ground"},
 	{"conf_hudsplats",      "HUD splats"},
 	{"conf_wounded",        "Wounded planes"},
