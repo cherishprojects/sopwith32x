@@ -1,3 +1,11 @@
+# v1.0
+
+Initial version. 
+* can start up game, choose singleplayer and play
+
+********************************
+Original sdl-sopwith project follows 
+
 # v2.1.0 (2022-08-31)
 
 Bug fixes and changes in this version:
