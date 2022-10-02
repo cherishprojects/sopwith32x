@@ -2,19 +2,19 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LocalDebuggerCommand>C:\Dropbox\GenDev\Emulators\GensKMod_DJCC_2018\gens.exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments>$(ProjectDir)\..\out\Sopwith.32x</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>$(ProjectDir)\..\out\Sopwith32x.32x</LocalDebuggerCommandArguments>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)\..\</LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LocalDebuggerCommand>C:\Dropbox\GenDev\Emulators\GensKMod_DJCC_2018\gens.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>$(ProjectDir)\..\out\Sopwith.32x</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>$(ProjectDir)\..\out\Sopwith32x.32x</LocalDebuggerCommandArguments>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)\..\</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LocalDebuggerCommand>C:\Dropbox\GenDev\Emulators\GensKMod_DJCC_2018\gens.exe</LocalDebuggerCommand>
-    <LocalDebuggerCommandArguments> c:\Dropbox\GenDev\Projects\32X\Sopwith\out\Sopwith.32x</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments> c:\Dropbox\GenDev\Projects\32X\Sopwith\out\Sopwith32x.32x</LocalDebuggerCommandArguments>
     <LocalDebuggerWorkingDirectory>
     </LocalDebuggerWorkingDirectory>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
@@ -22,6 +22,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LocalDebuggerCommand>C:\Dropbox\GenDev\Emulators\GensKMod_DJCC_2018\gens.exe</LocalDebuggerCommand>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>..\out\Sopwith.32x</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>..\out\Sopwith32x.32x</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
