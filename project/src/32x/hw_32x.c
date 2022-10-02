@@ -16,10 +16,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#ifdef _WIN32
-#pragma warning( disable : 4244 4100 4459)
-#endif
-
 static int X = 0, Y = 0;
 static int MX = 40, MY = 25;
 static int init = 0;
@@ -56,7 +52,6 @@ void Hw32xSetPaletteColor(int s, int r, int g, int b)
 
 void Hw32xInit(int vmode, int lineskip)
 {
-#ifndef _WIN32
     volatile unsigned short *frameBuffer16 = &MARS_FRAMEBUFFER;
     int i;
 
@@ -175,13 +170,6 @@ void Hw32xInit(int vmode, int lineskip)
         MX = 40;
         MY = 25/(lineskip+1);
     }
-#endif
-    //Hw32xSetPaletteColor(255,31,31,31);
-    //Hw32xSetPaletteColor(0,0,0,0);
-    //Hw32xSetFGColor8bit(255);
-    //Hw32xSetBGColor8bit(0);
-    //Hw32xSetFGColor16bit(31,31,31);
-    //Hw32xSetBGColor16bit(0,0,0);
 
     X = Y = 0;
     init = vmode;
@@ -204,10 +192,6 @@ void Hw32xScreenSetXY(int x, int y)
     if( y<MY && y>=0 )
         Y = y;
 }
-
-#ifdef WIN32
-#pragma warning( disable : 4047 4133)
-#endif
 
 void Hw32xScreenClear()
 {
@@ -241,11 +225,8 @@ extern unsigned char msx[];
 
 static void debug_put_char_16(int x, int y, unsigned char ch)
 {
-#ifndef _WIN32
     volatile unsigned short *fb = &MARS_FRAMEBUFFER;
-#else
-    volatile unsigned short *fb = MARS_FRAMEBUFFER;
-#endif
+
     int i,j;
     unsigned char *font;
     int vram, vram_ptr;
@@ -277,11 +258,8 @@ static void debug_put_char_16(int x, int y, unsigned char ch)
 
 static void debug_put_char_8(int x, int y, unsigned char ch)
 {
-#ifndef _WIN32
     volatile unsigned char *fb = (volatile unsigned char *)&MARS_FRAMEBUFFER;
-#else
-    volatile unsigned char *fb = (volatile unsigned char *)MARS_FRAMEBUFFER;
-#endif
+
     int i,j;
     unsigned char *font;
     int vram, vram_ptr;
@@ -425,8 +403,6 @@ void Hw32xDelay(int ticks)
 
 void Hw32xScreenFlip(int wait)
 {
-#ifndef WIN32
-
     // Flip the framebuffer selection bit
     MARS_VDP_FBCTL = currentFB ^ 1;
     if (wait)
@@ -434,7 +410,6 @@ void Hw32xScreenFlip(int wait)
         while ((MARS_VDP_FBCTL & MARS_VDP_FS) == currentFB) ;
         currentFB ^= 1;
     }
-#endif
 }
 
 void Hw32xFlipWait()

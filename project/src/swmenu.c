@@ -40,8 +40,6 @@
 #include "swsymbol.h"
 #include "swtitle.h"
 
-#include "32x.h"
-#include "hw_32x.h"
 
 void drawmenu(int x, int y, unsigned char currentmenuitemindex, const char** menuitems, unsigned char menuitemscount)
 {

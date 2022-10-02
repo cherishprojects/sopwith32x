@@ -4,35 +4,13 @@
 /* Create a 5:5:5 RGB color */
 #define COLOR(r,g,b)    (((r)&0x1F)|((g)&0x1F)<<5|((b)&0x1F)<<10)
 
-#ifndef _WIN32
 #define MARS_CRAM           (*(volatile unsigned short *)0x20004200)
 #define MARS_FRAMEBUFFER    (*(volatile unsigned short *)0x24000000)
 #define MARS_FRAMEBUFFER_VIDEO    (*(volatile unsigned short *)0x24000200)
 #define MARS_OVERWRITE_IMG  (*(volatile unsigned short *)0x24020000)
 #define MARS_OVERWRITE_IMG_VIDEO  (*(volatile unsigned short *)0x24020200)
-#else
-
-extern unsigned char fake32xFrameBuffer[(320 * 224) + 0x200];
-#define MARS_FRAMEBUFFER    fake32xFrameBuffer
-#define MARS_FRAMEBUFFER_VIDEO    (fake32xFrameBuffer + 0x200)
-#define MARS_OVERWRITE_IMG  MARS_FRAMEBUFFER
-#define MARS_OVERWRITE_IMG_VIDEO  MARS_FRAMEBUFFER_VIDEO
-
-union stuff
-{
-unsigned char fakeCRAMBuffer[0x200];
-unsigned short fakeCRAM;
-} thing;
-#define MARS_CRAM           thing.fakeCRAM
-#endif
-
-#ifdef _32X
 #define FRAMEBUFFER_VIDEOAREA (u32)&MARS_FRAMEBUFFER_VIDEO
 #define OVERWRITE_VIDEOAREA (u32)&MARS_OVERWRITE_IMG_VIDEO
-#else
-#define FRAMEBUFFER_VIDEOAREA (u32)MARS_FRAMEBUFFER_VIDEO
-#define OVERWRITE_VIDEOAREA (u32)MARS_OVERWRITE_IMG_VIDEO
-#endif
 
 #define MARS_SDRAM          (*(volatile unsigned short *)0x26000000)
 
@@ -169,24 +147,16 @@ extern "C" {
 #endif
 
 /* global functions in sh2_crt0.s */
-#ifdef _WIN32
-#include <memory.h>
-inline void fast_memcpy(void *dst, const void *src, int len) {memcpy(dst, src, len * 4);}
-#else
 extern void fast_memcpy(void *dst, const void *src, int len);
-#endif
+
 /*
 * Copies words, runs from sdram for speed. len is in words
 */
 extern void fast_wmemcpy(void *dst, void *src, int len);
 
-#ifdef _WIN32
-inline void word_8byte_copy(void *dst, void *src, int count) { (void)dst;(void)src;(void)count;} // does nothing
-inline void word_8byte_copy_bytereverse(short *dst, short *src, int count) {(void)dst;(void)src;(void)count;} // does nothing
-#else
 extern void word_8byte_copy(void *dst, void *src, int count);
 extern void word_8byte_copy_bytereverse(short *dst, short *src, int count);
-#endif
+
 extern int get_stack_pointer();
 
 extern void CacheControl(int mode);

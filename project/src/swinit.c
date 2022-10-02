@@ -46,7 +46,7 @@
 #include "swsymbol.h"
 #include "swtitle.h"
 #include "swutil.h"
-
+#include "timer.h"
 
 
 static int have_savescore = 0;
@@ -1063,6 +1063,8 @@ void swinit(int argc, char *argv[])
 	if (modeset && keyset) {
 		titleflg = TRUE;
 	}
+
+	Timer_Init();
 
 	initseed();
 

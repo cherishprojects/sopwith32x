@@ -41,9 +41,6 @@
 #include "swsymbol.h"
 #include "swtitle.h"
 
-#include "32x.h"
-#include "hw_32x.h"
-
 #define X_OFFSET ((SCR_WDTH/2)-160)
 
 void swtitln(void)

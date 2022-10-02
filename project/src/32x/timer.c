@@ -37,25 +37,10 @@ float frt_counter2msec = 0;
 const int NTSC_CLOCK_SPEED = 23011360; // HZ
 const int PAL_CLOCK_SPEED  = 22801467; // HZ
 
-#ifdef _WIN32 
-#define ATTR_DATA_CACHE_ALIGN 
-#else
-#define ATTR_DATA_CACHE_ALIGN __attribute__((section(".data"), aligned(16)))
-#endif
-
-//int     getFRTCounter (void) ATTR_DATA_CACHE_ALIGN;
-
-
 int getFRTCounter(void)
 {
-#ifndef WIN32
 	unsigned cnt = (SH2_FRT_FRCH << 8) | SH2_FRT_FRCL;
 	return (int)((frt_ovf_count << 16) | cnt);
-#else
-	static int counter = 0;
-	counter+= 1000000;
-	return counter;
-#endif
 }
 
 int FRTCounter2Msec(int c)
@@ -73,7 +58,6 @@ typedef unsigned short u16;
 
 void initFRTCounter()
 {
-#ifndef WIN32
 	u16 NTSC;
 	NTSC = (MARS_VDP_DISPMODE & MARS_NTSC_FORMAT) != 0;
 
@@ -88,9 +72,6 @@ void initFRTCounter()
 
 														// change 128.0f to something else if SH2_FRT_TCR is changed!
 	frt_counter2msec = 128.0f * 1000.0f / (NTSC ? NTSC_CLOCK_SPEED : PAL_CLOCK_SPEED);
-#else
-	frt_counter2msec = 128.0f * 1000.0f / NTSC_CLOCK_SPEED;
-#endif
 }
 
 
@@ -104,7 +85,6 @@ int Timer_GetMS(void)
 
 void Timer_Sleep(int usec)
 {
-#ifndef WIN32
 	int start = Timer_GetMS();
 	int now = start;
 
@@ -112,7 +92,6 @@ void Timer_Sleep(int usec)
 	{
 		now = Timer_GetMS();
 	}
-#endif
 }
 
 void Timer_Init(void)

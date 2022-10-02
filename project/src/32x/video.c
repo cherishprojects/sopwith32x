@@ -442,103 +442,10 @@ static void Vid_SetMode(void)
 {
 	mars_init_8bit();
 
-#ifndef WIN32
-	//Hw32xScreenClear();
-	//HwMdClearScreen();
-#endif
-
-	/*
-	int n;
-	int w, h;
-	int flags = 0, renderer_flags = 0;
-	unsigned int rmask, gmask, bmask, amask;
-	int bpp;
-
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		fprintf(stderr, "Unable to initialize video subsystem: %s\n",
-		                SDL_GetError());
-		exit(-1);
-	}
-	srand(time(NULL));
-
-	GetWindowSize(&w, &h);
-
-	flags = SDL_WINDOW_RESIZABLE;
-	flags |= SDL_WINDOW_ALLOW_HIGHDPI;
-	if (vid_fullscreen) {
-		flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
-	}
-
-	window = SDL_CreateWindow(PACKAGE_STRING, SDL_WINDOWPOS_UNDEFINED,
-	                          SDL_WINDOWPOS_UNDEFINED, w, h, flags);
-
-	if (window == NULL) {
-		fprintf(stderr, "Failed to open SDL window: %s\n",
-		        SDL_GetError());
-		exit(-1);
-	}
-
-        pixel_format = SDL_GetWindowPixelFormat(window);
-		*/
 	int n;
 	for (n = 0; n < NUM_KEYS; ++n) {
 		keysdown[n] = 0;
 	}
-	/*
-
-	set_icon();
-	SDL_ShowCursor(0);
-
-	renderer_flags = SDL_RENDERER_PRESENTVSYNC;
-	renderer = SDL_CreateRenderer(window, -1, renderer_flags);
-
-	// Important: Set the "logical size" of the rendering context. At the
-	// same time this also defines the aspect ratio that is preserved while
-	// scaling and stretching the texture into the window.
-	SDL_RenderSetLogicalSize(renderer, SCR_WDTH, SCR_HGHT);
-
-	// Blank out the full screen area in case there is any junk in
-	// the borders that won't otherwise be overwritten.
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderClear(renderer);
-	SDL_RenderPresent(renderer);
-
-	// Format of argbbuffer must match the screen pixel format because we
-	// import the surface data into the texture.
-	if (argbbuffer != NULL) {
-		SDL_FreeSurface(argbbuffer);
-		argbbuffer = NULL;
-	}
-
-	if (argbbuffer == NULL) {
-		SDL_PixelFormatEnumToMasks(
-			pixel_format, &bpp, &rmask, &gmask,
-			&bmask, &amask);
-		argbbuffer = SDL_CreateRGBSurface(
-			0, SCR_WDTH, SCR_HGHT, bpp,
-			rmask, gmask, bmask, amask);
-		SDL_FillRect(argbbuffer, NULL, 0);
-	}
-
-	if (texture != NULL) {
-		SDL_DestroyTexture(texture);
-	}
-
-	// Set the scaling quality for rendering the intermediate texture into
-	// the upscaled texture to "nearest", which is gritty and pixelated and
-	// resembles software scaling pretty well.
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
-
-	// Create the intermediate texture that the RGBA surface gets loaded
-	// into. The SDL_TEXTUREACCESS_STREAMING flag means that this
-	// texture's content is going to change frequently.
-	texture = SDL_CreateTexture(renderer, pixel_format,
-	                            SDL_TEXTUREACCESS_STREAMING,
-	                            SCR_WDTH, SCR_HGHT);
-
-	// Initially create the upscaled texture for rendering to screen
-	CreateUpscaledTexture(1);
-	*/
 }
 
 void Vid_Shutdown(void)
@@ -568,11 +475,7 @@ void Vid_Init(void)
 	
 	//screenbuf = SDL_CreateRGBSurface(0, SCR_WDTH, SCR_HGHT, 8,
 	//                                 0, 0, 0, 0);
-#ifndef WIN32
 	vid_vram = (unsigned char*)&MARS_FRAMEBUFFER_VIDEO;//screenbuf->pixels;
-#else
-	vid_vram = (unsigned char*)MARS_FRAMEBUFFER_VIDEO;//screenbuf->pixels;
-#endif
 	vid_pitch = 320;//screenbuf->pitch;
 
 	//SDL_SetPaletteColors(screenbuf->format->palette, cga_pal, 0,
@@ -678,7 +581,6 @@ int keybindings[NUM_KEYS] = {
 */
 	int changed = FALSE;
 
-#ifndef WIN32
 	u16 buttonState = MARS_SYS_COMM8 & 0x0FFF;
 
 	
@@ -727,8 +629,6 @@ int keybindings[NUM_KEYS] = {
 	currentButtonState = buttonState;
 
 
-
-#endif
 
 	return changed;
 	/*
