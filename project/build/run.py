@@ -44,7 +44,6 @@ def builddata():
 
 def copy_to_daily_versions_folder():
     daily_versions_folder = "..\dailyversions"
-    daily_versions_hdd_folder = "c:\\Shawn\\projects\\" + PROJECT_NAME + "\\dailyversions"
 
     source = "out\\{0}.32x".format(PROJECT_NAME)
     destination = "{0}\\{1}-{2}.32x".format(daily_versions_folder, PROJECT_NAME, datetime.datetime.now().date())
@@ -52,15 +51,9 @@ def copy_to_daily_versions_folder():
         if os.makedirs(daily_versions_folder):
             raise Exception("Error encountered while trying to create Daily Versions folder")
 
-    if not os.path.exists(daily_versions_hdd_folder):
-        if os.makedirs(daily_versions_hdd_folder):
-            raise Exception("Error encountered while trying to create HDD Daily Versions folder")
-
     if os.path.isfile(source):
         print "- Copying backup to Daily Versions folder"
         if shutil.copy(source, destination):
-            raise Exception("Error encountered while trying to copy to Daily Versions folder")
-        if shutil.copy(destination, daily_versions_hdd_folder):
             raise Exception("Error encountered while trying to copy to Daily Versions folder")
 
 def build():
@@ -113,20 +106,12 @@ def cleancode():
             if os.path.isfile("out\\src\\" + f):
                 os.remove("out\\src\\" + f)
 
-def cleangeneratedsource():
-
-    if os.path.exists("src\\exported"):
-        print("- Cleaning exported source folder")
-        shutil.rmtree("src\\exported")
-        shutil.rmtree("out\\src\\exported")
-
 def cleanoutfolder():
     if os.path.exists("out"):
         print("- Cleaning out folder")
         shutil.rmtree("out")
 
 def clean():
-    cleangeneratedsource()
     cleanoutfolder()
 
 def rebuild():
@@ -147,7 +132,6 @@ def parse_args():
     run_run = subparser.add_parser('run', help='runs the project')
     run_clean = subparser.add_parser('clean', help='cleans project')
     run_cleancode = subparser.add_parser('cleancode', help='cleans project code objs except generated code')
-    run_cleangeneratedsource = subparser.add_parser('cleangeneratedsource', help='cleans just the generated source files of the project')
     run_cleanoutfolder = subparser.add_parser('cleanoutfolder', help='cleans just the out folder of the project')
     run_rebuild = subparser.add_parser('rebuild', help='cleans and builds project')
     run_rebuildrun = subparser.add_parser('rebuildrun', help='cleans, builds and runs project')
@@ -197,10 +181,7 @@ def main():
         command = cleancode
     elif args.command == 'cleanoutfolder':
         command = cleanoutfolder
-    elif args.command == 'cleangeneratedsource':
-        command = cleangeneratedsource
     elif args.command == 'rebuild':
-        print "hello"
         command = rebuild
     elif args.command == 'rebuildrun':
         command = rebuildrun
