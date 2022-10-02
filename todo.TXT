@@ -1,17 +1,18 @@
 DONE fix colors
 DONE fix timer
 
-adapt controls
+DONE adapt controls
 
 
-adapt menu
+adapt start menu
+adapt options menu
 
 fix intro screen
-	but how????
-
 
 code clean up
-format changes to project
-pull request to project
-
-fix all the warnings
+	remove networking
+	config file stuff
+	remove all the sdl related code
+	fix all the warnings
+	
+split screen????	

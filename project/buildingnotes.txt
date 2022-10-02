@@ -1,0 +1,5 @@
+This uses marsdev <https://github.com/andwn/marsdev>
+
+The development tools are pretty Windows-focused. Lots of utility batch files.
+
+I'm sure makefile wizards can do what I'm doing in the run.py file.
