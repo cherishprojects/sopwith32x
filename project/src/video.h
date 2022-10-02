@@ -42,6 +42,12 @@ typedef enum {
 	KEY_ACCEL,
 	KEY_DECEL,
 	KEY_SOUND,
+	KEY_UP,
+	KEY_DOWN,
+	KEY_LEFT,
+	KEY_RIGHT,
+	KEY_ACCEPT,
+	KEY_BACK,
 	NUM_KEYS,
 } sopkey_t;
 
@@ -56,6 +62,7 @@ typedef enum {
 // a button fast enough)
 
 extern int keysdown[NUM_KEYS];
+extern int keysstate[NUM_KEYS];
 extern int keybindings[NUM_KEYS];
 
 extern BOOL vid_fullscreen;         // fullscreen

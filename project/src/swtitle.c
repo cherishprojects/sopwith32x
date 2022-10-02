@@ -35,10 +35,14 @@
 #include "swgrpha.h"
 #include "swinit.h"
 #include "swmain.h"
+#include "swmenu.h"
 #include "swtext.h"
 #include "swsound.h"
 #include "swsymbol.h"
 #include "swtitle.h"
+
+#include "32x.h"
+#include "hw_32x.h"
 
 #define X_OFFSET ((SCR_WDTH/2)-160)
 
@@ -53,7 +57,7 @@ void swtitln(void)
 
 	swcolor(2);
 	swposcur(18+X_OFFSET/8, 2);
-	swputs("SDL");
+	swputs("32X");
 
 	swcolor(3);
 	swposcur(13+X_OFFSET/8, 4);
@@ -182,24 +186,23 @@ static BOOL getnet(void)
 static BOOL getskill(void)
 {
 	for (;;) {
-		clrprmpt();
-		swputs("Key: N - novice player\n");
-		swputs("     E - expert player\n");
+		const char* menuitems[] = 
+		{
+			"novice player\n",
+			"expert player\n",
+		};
+		int menuitemscount = sizeof(menuitems) / sizeof(menuitems[0]);
+		
+		int selection = displaymenu(5, 20, menuitems, menuitemscount);
 
-		Vid_Update();
-
-		swsndupdate();
-		if (ctlbreak()) {
-			swend(NULL, NO);
-		}
-		switch (toupper(swgetc() & 0xff)) {
-		case 'N':
+		switch (selection) {
+		case 0:
 			playmode = PLAYMODE_NOVICE;
 			return 1;
-		case 'E':
+		case 1:
 			playmode = PLAYMODE_SINGLE;
 			return 1;
-		case 27:
+		case -1:
 			return 0;
 		}
 	}
@@ -208,48 +211,48 @@ static BOOL getskill(void)
 void getgamemode(void)
 {
 	for (;;) {
-		char c;
 
-		swtitln();
-
-		clrprmpt();
-
-		swputs("Key: S - single player\n");
-		swputs("     C - single player against computer\n");
+		unsigned char currentIndex = 0;
+		const char* menuitems[] = 
+		{
+			"single player\n",
+			"single player against computer\n",
 #ifdef TCPIP
-		swputs("     N - network game\n");
+			"network game\n", 
+#else
+			 "network game (unavailable)\n", 
+#endif		
+			"game options\n",
+#ifdef CAN_QUIT
+			"quit game\n"
 #endif
-		swputs("     O - game options\n");
-		swputs("     Q - quit game\n");
-		Vid_Update();
+		};
+		int menuitemscount = sizeof(menuitems) / sizeof(menuitems[0]);
+		
+		int selection = displaymenu(5, 20, menuitems, menuitemscount);
 
-		if (ctlbreak()) {
-			swend(NULL, NO);
-		}
-
-		c = toupper(swgetc() & 0xff);
-
-		switch (c) {
-		case 'S':
+		switch (selection) 
+		{
+		case 0:
 			if (getskill()) {
 				return;
 			}
 			break;
-		case 'O':
-			setconfig();
-			break;
-		case 'C':
+		case 1:
 			playmode = PLAYMODE_COMPUTER;
 			return;
+		case 2:
+			setconfig();
+			break;
 #ifdef TCPIP
-		case 'N':
+		case 3:
 			if (getnet()) {
 				playmode = PLAYMODE_ASYNCH;
 				return;
 			}
 			break;
 #endif
-		case 'Q':
+		case 4:
 			exit(0);
 			break;
 		}
@@ -260,6 +263,9 @@ void getgamemode(void)
 //---------------------------------------------------------------------------
 //
 // $Log$
+// Revision ?.?  2022/10/01 19:46:10  pw
+// converted menu screens for keyboard-less platforms
+//
 // Revision 1.10  2005/05/29 19:46:10  fraggle
 // Fix up autotools build. Fix "make dist".
 //

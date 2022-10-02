@@ -1,0 +1,1 @@
+mega-usb.exe ..\out\Sopwith.32x

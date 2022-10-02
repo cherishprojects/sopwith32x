@@ -1,0 +1,17 @@
+DONE fix colors
+DONE fix timer
+
+adapt controls
+
+
+adapt menu
+
+fix intro screen
+	but how????
+
+
+code clean up
+format changes to project
+pull request to project
+
+fix all the warnings

@@ -1,7 +1,10 @@
 // Emacs style mode select -*- C++ -*-
 //---------------------------------------------------------------------------
 //
-// Copyright(C) 2001-2003 Simon Howard
+// $Id$
+//
+// Copyright(C) 1984-2000 David L. Clark
+// Copyright(C) 2001-2005 Simon Howard
 //
 // This program is free software; you can redistribute it and/or modify it
 // under the terms of the GNU General Public License as published by the
@@ -16,22 +19,21 @@
 //
 //---------------------------------------------------------------------------
 
-// config.h for MSVC build
+#ifndef __SWMENU_H__
+#define __SWMENU_H__
 
-/* version */
+#include "sw.h"
 
-#define VERSION "x"
+int displaymenu(int x, int y, const char** menuitems, unsigned char menuitemscount);
 
-/* TCP/IP support */
+#endif
 
-//#define TCPIP
 
 //---------------------------------------------------------------------------
 //
 // $Log$
-// Revision 1.1  2003/06/16 02:13:57  fraggle
-// Add some stuff for MSVC support
+// Revision ?.?  2022/10/01 19:25:28  pw
+// Added menu system to make selections on keyboard-less platforms
 //
-
 //---------------------------------------------------------------------------
 

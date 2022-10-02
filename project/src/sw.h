@@ -33,8 +33,9 @@
 
 #ifdef _MSC_VER
 #define inline __inline
-#define strcasecmp stricmp
+//#define stricmp strcasecmp
 #define strncasecmp strnicmp
+#define _CRT_SECURE_NO_WARNINGS
 #endif
 
 /*  Constants  */

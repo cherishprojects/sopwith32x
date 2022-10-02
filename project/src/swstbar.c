@@ -67,6 +67,8 @@ static void dispmedals(OBJECTS *ob)
 	}
 }
 
+extern unsigned short currentButtonState;
+
 static void dispscore(OBJECTS * ob)
 {
 	Vid_Box(0, 16, 48 + 32, 16, 0);
@@ -74,6 +76,7 @@ static void dispscore(OBJECTS * ob)
 	swposcur(2, 24);
 	swcolor(ob->ob_clr);
 	swdispd(ob->ob_score.score, 6);
+	swdispd(currentButtonState, 6);
 }
 
 static void dispgge(int x, int cury, int maxy, int clr)

@@ -22,7 +22,7 @@
 //        swinit   -      SW initialization
 //
 //---------------------------------------------------------------------------
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -46,6 +46,8 @@
 #include "swsymbol.h"
 #include "swtitle.h"
 #include "swutil.h"
+
+
 
 static int have_savescore = 0;
 static score_t savescore;		/* save players score on restart  */
@@ -1016,7 +1018,7 @@ void swinit(int argc, char *argv[])
 	// The code has changed significantly, that patch should no
 	// longer be necessary.
 	swloadconf();
-
+	/*
 	for (i=1; i<argc; ++i) {
 		if (!strcasecmp(argv[i], "-n")) {
 			n = 1;
@@ -1026,7 +1028,7 @@ void swinit(int argc, char *argv[])
 			c = 1;
 		} else if (!strcasecmp(argv[i], "-f")) {
 			vid_fullscreen = 1;
-		} else if (!strncasecmp(argv[i], "-g", 2)) {
+		} else if (!strcasecmp(argv[i], "-g", 2)) {
 			sscanf(& (argv[i][2]), "%d", &starting_level);
 			gamenum = starting_level;
 		} else if (!strcasecmp(argv[i], "-q")) {
@@ -1052,6 +1054,7 @@ void swinit(int argc, char *argv[])
 			exit(0);
 		}
 	}
+	*/
 
 	modeset = n | s | c | a;
 	keyset = k;

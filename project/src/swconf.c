@@ -25,6 +25,8 @@
 //
 //-------------------------------------------------------------------------
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
@@ -104,6 +106,7 @@ static void chomp(char *s)
 
 static confoption_t *confoption_by_name(char *name)
 {
+	/*
 	int i;
 
 	for (i=0; i<num_confoptions; ++i) {
@@ -111,8 +114,9 @@ static confoption_t *confoption_by_name(char *name)
 			return &confoptions[i];
 		}
 	}
-
+	*/
 	return NULL;
+
 }
 
 static void parse_config_line(char *config_file, int lineno, char *line)
@@ -178,6 +182,7 @@ static void parse_config_line(char *config_file, int lineno, char *line)
 
 void swloadconf(void)
 {
+	/*
 	char *config_file = GetConfigFilename();
 	FILE *fs;
 	char inbuf[128];
@@ -205,6 +210,7 @@ void swloadconf(void)
 	}
 
 	fclose(fs);
+	*/
 }
 
 //
@@ -215,6 +221,7 @@ void swloadconf(void)
 
 void swsaveconf(void)
 {
+	/*
 	char *config_file = GetConfigFilename();
 	FILE *fs;
 	int i;
@@ -253,6 +260,7 @@ void swsaveconf(void)
 	fprintf(fs, "\n\n");
 
 	fclose(fs);
+	*/ 
 }
 
 struct menuitem {
@@ -264,6 +272,7 @@ static const char menukeys[] = "1234567890ABCDEFGHIJKL";
 
 static void change_key_binding(struct menuitem *item)
 {
+	/*
 	confoption_t *opt;
 	int key;
 
@@ -301,6 +310,7 @@ static void change_key_binding(struct menuitem *item)
 		return;
 	}
 	*opt->value.i = key;
+	*/
 }
 
 static void drawmenu(char *title, struct menuitem *menu)
