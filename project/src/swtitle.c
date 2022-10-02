@@ -133,8 +133,8 @@ void clrprmpt(void)
 	int x, y;
 
 	for (y = 0; y <= 43; ++y)
-		for (x = 0; x < SCR_WDTH; ++x) {
-			Vid_PlotPixel(x, y, 0);
+		for (x = 0; x < SCR_WDTH_HALF; ++x) {
+			Vid_PlotDoublePixel(x, y, 0);
 		}
 
 	swposcur(0, 20);

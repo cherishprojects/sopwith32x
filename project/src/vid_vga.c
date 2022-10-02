@@ -106,6 +106,16 @@ void Vid_PlotPixel(int x, int y, int clr)
 	*sptr = clr & 3;
 }
 
+void Vid_PlotDoublePixel(int x, int y, int clr)
+{
+	unsigned short *sptr
+		= (unsigned short *)vid_vram + (SCR_HGHT-1 - y) * (vid_pitch >> 1) + x;
+
+	*sptr = clr & 3;
+}
+
+
+
 void Vid_XorPixel(int x, int y, int clr)
 {
 	unsigned char *sptr

@@ -52,6 +52,7 @@
 #define TARGHITCOUNT    10              /*  Target hit count before explod'n*/
 
 #define SCR_WDTH        320             /*  Screen Width                    */
+#define SCR_WDTH_HALF   160             /*  Half Screen Width               */
 #define SCR_HGHT        200             /*  Screen Height                   */
 
 #define SCR_CENTR       ((SCR_WDTH / 2) - 8) /*  Centre column of screen */
