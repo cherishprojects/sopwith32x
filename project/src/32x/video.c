@@ -72,7 +72,7 @@ typedef volatile unsigned short int vu16;
 void init_linetable_8bit() 
 {
 	int i;
-	vu16* frameBuffer16 = MARS_FRAMEBUFFER;
+	vu16* frameBuffer16 = &MARS_FRAMEBUFFER;
 
 	uint16 lineOffs = 0x100;
 
@@ -238,6 +238,7 @@ BOOL Vid_GetCtrlBreak(void)
 
 const char *Vid_KeyName(int key)
 {
+	(void)key;
 	return NULL;
 }
 

@@ -196,6 +196,7 @@ static inline float square_wave(float time)
 // callback function to generate sound
 static void snd_callback(void *userdata, Uint8 * stream, int len)
 {
+	(void)userdata;
 	static int lasttime;
 	static float lastfreq;
 	float sample;

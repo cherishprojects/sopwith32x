@@ -55,14 +55,6 @@ static confoption_t confoptions[] = {
 
 int num_confoptions = sizeof(confoptions) / sizeof(*confoptions);
 
-static void chomp(char *s)
-{
-	char *p;
-	for (p=s+strlen(s)-1; isspace(*p) && p > s; --p) {
-		*p = '\0';
-	}
-}
-
 static confoption_t *confoption_by_name(char *name)
 {
 	int i;
@@ -84,7 +76,7 @@ struct menuitem {
 
 static void drawmenu(char *title, struct menuitem *menu, int menuitemscount, int currentmenuitemindex)
 {
-	int i, y, keynum, said_key = 0;
+	int i, y = 0;
 	Vid_ClearBuf();
 
 	swcolor(2);
@@ -95,9 +87,7 @@ static void drawmenu(char *title, struct menuitem *menu, int menuitemscount, int
 
 	for (i=0, y=0; i < menuitemscount; ++i, ++y) {
 		confoption_t *opt;
-		char *suffix;
 		char buf[40];
-		int key;
 
 		if (strlen(menu[i].config_name) == 0) {
 			continue;
@@ -136,9 +126,7 @@ static void drawmenu(char *title, struct menuitem *menu, int menuitemscount, int
 // binding associated with it.
 static int runmenu(char *title, struct menuitem *menu, int menuitemscount)
 {
-	struct menuitem *pressed;
 	confoption_t *opt;
-	int key;
 
 	int currentmenuitemindex = 0;
 	int done = FALSE;
@@ -189,8 +177,11 @@ static int runmenu(char *title, struct menuitem *menu, int menuitemscount)
 		else if (keysdown[KEY_BACK])
 		{
 			done = TRUE;
+			currentmenuitemindex = -1;
 		}
 	}
+
+	return currentmenuitemindex;
 }
 
 struct menuitem options_menu[] = {
@@ -210,12 +201,7 @@ int options_menu_count = sizeof(options_menu) / sizeof(options_menu[0]);
 
 void setconfig(void)
 {
-	for (;;) {
-		switch (runmenu("OPTIONS", options_menu, options_menu_count)) {
-			case 0:
-				return;
-		}
-	}
+	runmenu("OPTIONS", options_menu, options_menu_count);
 }
 
 //-------------------------------------------------------------------------

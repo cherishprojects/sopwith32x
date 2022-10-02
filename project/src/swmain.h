@@ -74,7 +74,7 @@ extern int latest_player_commands[MAX_PLYR][MAX_NET_LAG];
 extern int latest_player_time[MAX_PLYR];
 extern int num_players;
 
-extern int swmain(int argc, char *argv[]);
+extern int swmain();
 
 #endif
 

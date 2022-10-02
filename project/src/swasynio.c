@@ -81,7 +81,7 @@ static inline int try_readshort(void)
 
 	return (t << 8) + s;
 }
-
+#ifdef TCPIP
 static int readshort(void)
 {
 	int i;
@@ -97,6 +97,7 @@ static int readshort(void)
 
 	return i;
 }
+#endif
 
 void asynput(int movekey)
 {
@@ -132,6 +133,7 @@ void asynupdate(void)
 
 #define PROTOHEADER_FMT (PACKAGE_STRING ", player %d")
 
+#ifdef TCPIP
 static void synchronize(void)
 {
 	char *buf, *p;
@@ -191,8 +193,10 @@ static void synchronize(void)
 		sendshort(conf_big_explosions);
 	}
 }
+#endif
 
 // setup tcp loop
+#ifdef TCPIP
 static void AssignPlayers(BOOL server_side)
 {
 	int starttime, lastsendtime, now;
@@ -243,9 +247,10 @@ static void AssignPlayers(BOOL server_side)
 		}
 	}
 }
+#endif
 
 // setup connection
-
+#ifdef TCPIP
 static void asyninit(void)
 {
 	if (asynmode == ASYN_LISTEN) {
@@ -269,6 +274,7 @@ static void asyninit(void)
 		exit(-1);
 	}
 }
+#endif
 
 void init1asy(void)
 {

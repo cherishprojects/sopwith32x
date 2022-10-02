@@ -2,7 +2,7 @@
 
 int main(void)
 {
-	swmain(0 /*argc*/, NULL /*argv*/);
+	swmain();
 
     return 0;
 } // end of main function

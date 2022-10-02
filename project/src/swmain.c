@@ -207,13 +207,13 @@ static void dump_cmds(void)
 }
 #endif
 
-int swmain(int argc, char *argv[])
+int swmain()
 {
 	int nexttic;
 
 	nobjects = (OBJECTS *) malloc(100 * sizeof(OBJECTS));
 
-	swinit(argc, argv);
+	swinit();
 	setjmp(envrestart);
 
 	// sdh 28/10/2001: playmode is called from here now

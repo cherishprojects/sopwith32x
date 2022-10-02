@@ -151,36 +151,6 @@ static BOOL gethost(void)
 	return 1;
 }
 
-// network menu
-
-static BOOL getnet(void)
-{
-	for (;;) {
-		clrprmpt();
-		swputs("Key: L - listen for connection\n");
-		swputs("     C - connect to remote host\n");
-
-		Vid_Update();
-
-		swsndupdate();
-
-		if (ctlbreak()) {
-			swend(NULL, NO);
-		}
-
-		switch (toupper(swgetc() & 0xff)) {
-		case 'L':
-			asynmode = ASYN_LISTEN;
-			return 1;
-		case 'C':
-			asynmode = ASYN_CONNECT;
-			gethost();
-			return 1;
-		case 27:
-			return 0;
-		}
-	}
-}
 
 // sdh: get single player skill level
 
@@ -213,7 +183,6 @@ void getgamemode(void)
 {
 	for (;;) {
 
-		unsigned char currentIndex = 0;
 		const char* menuitems[] = 
 		{
 			"single player\n",

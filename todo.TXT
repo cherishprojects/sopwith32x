@@ -9,12 +9,12 @@ DONE adapt options menu
 DONE fix intro screen
 
 code clean up
-	remove networking?
-	config file stuff
-	remove all the sdl related code
+	DONE remove networking?
+	DONE config file stuff
+	DONE remove all the sdl related code
 	fix all the warnings
 	
-use the flags in keysdown instead of using keysstate
+NAH use the flags in keysdown instead of using keysstate
 
 sound
 	

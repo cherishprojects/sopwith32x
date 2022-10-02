@@ -53,33 +53,6 @@ static int have_savescore = 0;
 static score_t savescore;		/* save players score on restart  */
 static int starting_level = 0;
 
-static char helptxt[] =
-"\n"
-PACKAGE_STRING "\n"
-"Copyright (C) 1984, 1985, 1987 BMB Compuscience\n"
-"Copyright (C) 1984-2000 David L. Clark\n"
-"Copyright (C) 2001-2022 Simon Howard, Jesse Smith\n"
-"Licensed under the GNU GPL v2.\n"
-"\n"
-"Usage:  sopwith [options]\n"
-"The options are:\n"
-"        -n :  novice single player\n"
-"        -s :  single player\n"
-"        -c :  single player against computer\n"
-"        -q :  begin game with sound off\n"
-"        -g#:  start at level #\n"
-"        -e :  turn off big explosions\n"
-"\n"
-"Video:\n"
-"        -f    :  fullscreen\n"
-"\n"
-#ifdef TCPIP
-"Networking: \n"
-"        -l    :  listen for connection\n"
-" -j <host>    :  connect to a listening host\n"
-#endif
-;
-
 static void initobjs(void)
 {
 	OBJECTS *ob;
@@ -1003,10 +976,8 @@ void swrestart(void)
 
 // init game
 
-void swinit(int argc, char *argv[])
+void swinit()
 {
-	int i;
-
 	soundflg = 0;
 
 	soundflg = !soundflg;

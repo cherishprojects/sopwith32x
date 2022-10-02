@@ -43,7 +43,6 @@
 
 void drawmenu(int x, int y, unsigned char currentmenuitemindex, const char** menuitems, unsigned char menuitemscount)
 {
-	int originalY = y;
 	int i;
 	for (i = 0; i < menuitemscount; i++)
 	{
@@ -65,7 +64,7 @@ int displaymenu(int x, int y, const char** menuitems, unsigned char menuitemscou
 		swsndupdate();
 
 		clrprmpt();
-		drawmenu(5, 20, currentindex, menuitems, menuitemscount);
+		drawmenu(x, y, currentindex, menuitems, menuitemscount);
 
 		Vid_GetKey();
 

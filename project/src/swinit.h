@@ -23,7 +23,7 @@
 #define __SWINIT_H__
 
 #include "sw.h"
-extern void swinit(int argc, char *argv[]);
+extern void swinit();
 extern void swinitlevel(void);
 extern void swrestart(void);
 extern void initdisp(BOOL reset);

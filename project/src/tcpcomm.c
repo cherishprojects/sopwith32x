@@ -48,10 +48,9 @@ static int tcp_sock = -1;
 #endif   /* #ifdef TCPIP */
 
 // connect to a host
-
+#ifdef TCPIP
 void commconnect(char *host)
 {
-#ifdef TCPIP
 	struct hostent *hent;
 	struct sockaddr_in in;
 	char *realhost;
@@ -114,8 +113,8 @@ void commconnect(char *host)
 	fcntl(tcp_sock, F_SETFL, O_NONBLOCK);
 
 	fprintf(stderr, "commconnect: connected to '%s'!\n", host);
-#endif    /* #ifdef TCPIP */
 }
+#endif    /* #ifdef TCPIP */
 
 // open a socket and listen until a connection is established
 
@@ -239,9 +238,9 @@ int commin(void)
 }
 
 // send a byte
-
 void commout(unsigned char i)
 {
+	(void)i;
 #ifdef TCPIP
 	if (tcp_sock < 0) {
 		return;
@@ -254,6 +253,7 @@ void commout(unsigned char i)
 	}
 #endif   /* #ifdef TCPIP */
 }
+
 
 // disconnect
 
