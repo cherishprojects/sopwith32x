@@ -219,6 +219,8 @@ int swmain(int argc, char *argv[])
 	// sdh 28/10/2001: playmode is called from here now
 	// makes for a more coherent progression through the setup process
 
+	//playmode = PLAYMODE_SINGLE;
+
 	if (!playmode) {
 		getgamemode();
 	}
@@ -262,7 +264,8 @@ int swmain(int argc, char *argv[])
 
 		/* if we have all the tic commands we need, we can move */
 
-		if (can_move()) {
+		if (can_move()) 
+		{
 			calculate_lag();
 			//dump_cmds();
 			swmove();

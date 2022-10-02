@@ -67,6 +67,8 @@ static void dispmedals(OBJECTS *ob)
 	}
 }
 
+extern unsigned short currentButtonState;
+
 static void dispscore(OBJECTS * ob)
 {
 	Vid_Box(0, 16, 48 + 32, 16, 0);

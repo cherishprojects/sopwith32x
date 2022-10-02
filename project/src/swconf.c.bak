@@ -25,6 +25,8 @@
 //
 //-------------------------------------------------------------------------
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
@@ -41,6 +43,34 @@
 #include "swtitle.h"
 #include "swmain.h"
 
+/*
+#define CONFIG_FILE_NAME "sopwith.cfg"
+
+static char *GetConfigFilename(void)
+{
+	static char *result = NULL;
+	char *pref_path;
+	size_t buflen;
+
+	if (result != NULL) {
+		return result;
+	}
+
+	pref_path = Vid_GetPrefPath();
+	if (pref_path == NULL) {
+		return NULL;
+	}
+
+	buflen = strlen(pref_path) + strlen(CONFIG_FILE_NAME) + 1;
+	result = malloc(buflen);
+	if (result == NULL) {
+		return NULL;
+	}
+
+	snprintf(result, buflen, "%s%s", pref_path, CONFIG_FILE_NAME);
+	return result;
+}
+*/ 
 static confoption_t confoptions[] = {
 	{"conf_missiles",       CONF_BOOL, {&conf_missiles}},
 	{"conf_solidground",    CONF_BOOL, {&conf_solidground}},
@@ -74,13 +104,204 @@ static confoption_t *confoption_by_name(char *name)
 	}
 
 	return NULL;
+
 }
 
+/*
+static void parse_config_line(char *config_file, int lineno, char *line)
+{
+	char *name, *value, *p;
+	int key;
+	confoption_t *opt;
 
+	p = line;
+	chomp(p);
+
+	// skip whitespace and discard comments.
+	while (*p != '\0' && isspace(*p)) {
+		++p;
+	}
+	if (*p == '#') {
+		return;
+	}
+	if (*p == '\0') {
+		return;
+	}
+
+	name = p;
+	for (; *p != '\0' && !isspace(*p); ++p);
+
+	if (*p == '\0') {
+		fprintf(stderr, "swloadconf: %s:%d: malformed line: no value\n",
+		        config_file, lineno);
+		return;
+	}
+
+	*p++ = '\0';
+	for (; isspace(*p); ++p);
+	value = p;
+
+	opt = confoption_by_name(name);
+	if (opt == NULL) {
+		fprintf(stderr,
+		        "swloadconf: %s:%d: unknown config option '%s'\n",
+		        config_file, lineno, name);
+		return;
+	}
+
+	switch (opt->type) {
+		case CONF_BOOL:
+			*opt->value.b = atoi(value) != 0;
+			break;
+		case CONF_KEY:
+			if (sscanf(value, "%d", &key) == 1) {
+				*opt->value.i = key;
+			}
+			break;
+		default:
+			break;
+	}
+}
+*/
+//
+// load config file
+//
+// ugly but it works
+//
+	/*
+void swloadconf(void)
+{
+
+	char *config_file = GetConfigFilename();
+	FILE *fs;
+	char inbuf[128];
+	int lineno = 0;
+
+	if (config_file == NULL) {
+		return;
+	}
+
+	fs = fopen(config_file, "r");
+
+	if (fs == NULL) {
+		// It isn't an error if the config file doesn't exist yet.
+		if (errno != ENOENT) {
+			fprintf(stderr, "swloadconf: failed to open %s: %s\n",
+			        config_file, strerror(errno));
+		}
+		return;
+	}
+
+	while (!feof(fs)) {
+		fgets(inbuf, sizeof(inbuf), fs);
+		++lineno;
+		parse_config_line(config_file, lineno, inbuf);
+	}
+
+	fclose(fs);
+
+}
+
+//
+// swsaveconf
+//
+// save config file
+//
+
+void swsaveconf(void)
+{
+	/*
+	char *config_file = GetConfigFilename();
+	FILE *fs;
+	int i;
+
+	if (config_file == NULL) {
+		return;
+	}
+
+	fs = fopen(config_file, "w");
+
+	if (fs == NULL) {
+		fprintf(stderr, "swsaveconf: failed to open %s: %s\n",
+		        config_file, strerror(errno));
+		return;
+	}
+
+	fprintf(fs, "# Configuration file for " PACKAGE_NAME "\n"
+	            "# Created by " PACKAGE_STRING "\n\n");
+
+	for (i=0; i<num_confoptions; ++i) {
+		fprintf(fs, "%-20s", confoptions[i].name);
+		switch (confoptions[i].type) {
+		case CONF_BOOL:
+			fprintf(fs, "%d", *confoptions[i].value.b);
+			break;
+		case CONF_KEY:
+			fprintf(fs, "%d", *confoptions[i].value.i);
+			break;
+		default:
+			fprintf(fs, "?");
+			break;
+		}
+		fprintf(fs, "\n");
+	}
+
+	fprintf(fs, "\n\n");
+
+	fclose(fs);
+
+}
+	*/ 
 struct menuitem {
 	char *config_name;
 	char *description;
 };
+
+//static const char menukeys[] = "1234567890ABCDEFGHIJKL";
+
+	/*
+static void change_key_binding(struct menuitem *item)
+{
+
+	confoption_t *opt;
+	int key;
+
+	Vid_ClearBuf();
+
+	swcolor(3);
+	swposcur(10, 5);
+	swputs("Press the new key for: ");
+
+	swcolor(2);
+	swposcur(14, 7);
+	swputs(item->description);
+
+	swcolor(1);
+	swposcur(1, 22);
+	swputs("   ESC - Cancel");
+
+	Vid_Update();
+
+	while ((key = Vid_GetKey()) == 0) {
+		Timer_Sleep(50);
+
+		swsndupdate();
+		if (ctlbreak()) {
+			return;
+		}
+	}
+
+	if (!strcasecmp(Vid_KeyName(key), "Escape")) {
+		return;
+	}
+
+	opt = confoption_by_name(item->config_name);
+	if (opt == NULL) {
+		return;
+	}
+	*opt->value.i = key;
+}
+	*/
 
 static void drawmenu(char *title, struct menuitem *menu, int menuitemscount, int currentmenuitemindex)
 {
@@ -103,6 +324,23 @@ static void drawmenu(char *title, struct menuitem *menu, int menuitemscount, int
 			continue;
 		}
 
+		/*
+		if (menu[i].config_name[0] == '>') {
+			key = menu[i].config_name[1];
+			swcolor(1);
+			suffix = " >>>";
+		} else {
+			key = menukeys[keynum];
+			++keynum;
+			suffix = ":";
+
+			if (!said_key) {
+				swposcur(0, 5+y);
+				swputs("Key:");
+				said_key = 1;
+			}
+		}
+		*/
 		if (strcasecmp(menu[i].config_name, "exit") == 0)
 			swcolor(1);
 
@@ -130,6 +368,29 @@ static void drawmenu(char *title, struct menuitem *menu, int menuitemscount, int
 
 	Vid_DispSymbol(16, SCR_HGHT - (34 + (currentmenuitemindex * 8)), symbol_plane[0][0], 1);
 }
+/*
+static struct menuitem *menuitem_for_key(struct menuitem *menu, int key)
+{
+	int i, keynum;
+
+	for (i=0, keynum=0; menu[i].config_name != NULL; ++i) {
+		int itemkey;
+		if (strlen(menu[i].config_name) == 0) {
+			continue;
+		} else if (menu[i].config_name[0] == '>') {
+			itemkey = menu[i].config_name[1];
+		} else {
+			itemkey = menukeys[keynum];
+			++keynum;
+		}
+		if (key == itemkey) {
+			return &menu[i];
+		}
+	}
+
+	return NULL;
+}
+*/
 
 // Present the given menu to the user. Returns zero if escape was pushed
 // to exit the menu, or if a >jump item was chosen, it returns the key
@@ -145,6 +406,35 @@ static int runmenu(char *title, struct menuitem *menu, int menuitemscount)
 
 	while (!done) {
 		drawmenu(title, menu, menuitemscount, currentmenuitemindex);
+
+		/*
+		// check if a number has been pressed for a menu option
+		pressed = menuitem_for_key(menu, key);
+		if (pressed == NULL) {
+			continue;
+		}
+
+		if (pressed->config_name[0] == '>') {
+			return pressed->config_name[1];
+		}
+
+		opt = confoption_by_name(pressed->config_name);
+		if (opt == NULL) {
+			continue;
+		}
+		switch (opt->type) {
+		case CONF_BOOL:
+			*opt->value.b = !*opt->value.b;
+			break;
+		case CONF_KEY:
+			change_key_binding(pressed);
+			break;
+		default:
+			break;
+		}
+
+		swsaveconf();
+		*/
 
 		Vid_GetKey();
 

@@ -245,7 +245,7 @@ void getgamemode(void)
 //---------------------------------------------------------------------------
 //
 // $Log$
-// Revision ?.?  2022/10/01 19:46:10  cherish
+// Revision 32X 1.0 2022/10/01 19:46:10  cherish
 // converted menu screens for keyboard-less platforms
 //
 // Revision 1.10  2005/05/29 19:46:10  fraggle

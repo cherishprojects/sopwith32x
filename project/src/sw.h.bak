@@ -35,6 +35,7 @@
 #define inline __inline
 #define strcasecmp stricmp
 #define strncasecmp strnicmp
+#define _CRT_SECURE_NO_WARNINGS
 #endif
 
 /*  Constants  */

@@ -21,8 +21,6 @@
 // Timer code
 //
 // Abstraction layer for access to the timer
-// Basically this is to keep SDL out of the main code, so we can if we
-// want drop in other code to run without SDL.
 //
 //--------------------------------------------------------------------------
 

@@ -63,7 +63,6 @@ typedef enum {
 
 extern int keysdown[NUM_KEYS];
 extern int keysstate[NUM_KEYS];
-extern int keybindings[NUM_KEYS];
 
 extern BOOL vid_fullscreen;         // fullscreen
 
@@ -117,7 +116,6 @@ extern void Vid_DispSymbol(int x, int y, sopsym_t *symbol,
 
 void Vid_ClearBuf(void);
 
-char *Vid_GetPrefPath(void);
 
 #endif
 
