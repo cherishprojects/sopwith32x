@@ -354,7 +354,7 @@ main_frt:
         bt      9f
         /* overflow */
         mov     #0,r0
-        mov.w   r0,@r1  /* clear OVF IRQ */
+        mov.b   r0,@r1  /* clear OVF IRQ */
 
         mov.l   frt_ovf_count_ptr,r1
         mov.l   @r1,r0
